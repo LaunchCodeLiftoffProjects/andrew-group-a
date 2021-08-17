@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Shopping List</title>
-</head>
+<head th:replace="fragments :: head"></head>
+<header th:replace="fragments :: header"></header>
 <body>
-
+<div class="mx-5">
+    <h2>Welcome to Shopping List Creator!</h2>
+</div>
+<div class="mx-5">
+    <p>With this app you can create and customize your shopping lists. Add items, remove them, and even add tags for easy organization!</p>
+</div>
 </body>
 </html>
