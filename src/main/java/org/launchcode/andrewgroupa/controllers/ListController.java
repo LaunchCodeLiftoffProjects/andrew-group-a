@@ -2,10 +2,7 @@ package org.launchcode.andrewgroupa.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +26,9 @@ public class ListController {
         return "redirect:/list";
     }
 
-
+//    @DeleteMapping
+//    public String processDeleteItem() {
+//        return "";
+//    }
 
 }
