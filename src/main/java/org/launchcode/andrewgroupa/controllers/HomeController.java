@@ -12,4 +12,7 @@ public class HomeController {
     public String welcomeToLists() {
         return "index";
     }
+
+    @GetMapping("login")
+    public String login() { return "login"; }
 }
