@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<header th:replace="fragments :: header"></header>
+<body>
+<div class="mx-5">
+  <h2>My List</h2>
+</div>
+<div class="mx-5">
+  <form method="post">
+    <input type="text" name="itemName">
+    <input type="submit" value="Add to List">
+  </form>
+</div>
+<div class="mx-5">
+  <ul>
+    <th:block th:each="item : ${myList}">
+      <li th:text="${item}"></li>
+    </th:block>
+  </ul>
+</div>
+</body>
+</html>
