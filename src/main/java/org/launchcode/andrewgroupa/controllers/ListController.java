@@ -1,11 +1,11 @@
 package org.launchcode.andrewgroupa.controllers;
 
+import org.launchcode.andrewgroupa.data.ItemRepository;
+import org.launchcode.andrewgroupa.models.Item;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,21 +14,25 @@ import java.util.List;
 @RequestMapping("list")
 public class ListController {
 
-    private static List<String> myList = new ArrayList<>();
+    @Autowired
+    private ItemRepository itemRepository;
 
     @GetMapping
-    public String displayListAndAddForm(Model model) {
+    public String displayListAndAddItemForm(Model model) {
         model.addAttribute("title", "My List");
-        model.addAttribute("myList", myList);
+        model.addAttribute(new Item());
+        model.addAttribute("myList", itemRepository.findAll());
         return "list/index";
     }
 
     @PostMapping
-    public String processAddForm(@RequestParam String itemName) {
-        myList.add(itemName);
+    public String processAddItemForm(@RequestParam String itemName) {
         return "redirect:/list";
     }
 
-
+//    @DeleteMapping
+//    public String processDeleteItem() {
+//        return "";
+//    }
 
 }
