@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 public class Item extends AbstractEntity {
 
     @NotBlank
-    @Size(min = 3, max = 255, message = "Item name but be between 3 and 250 characters.")
+    @Size(min = 3, max = 20, message = "Item name but be between 3 and 20 characters.")
     private String name;
 
     public Item() {}
