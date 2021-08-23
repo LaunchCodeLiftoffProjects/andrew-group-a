@@ -8,16 +8,22 @@
 </div>
 <div class="mx-5">
   <form method="post">
-    <input type="text" name="itemName">
+      <input th:field="${item.name}">
+    <p class="error" th:errors="${item.name}"></p>
     <input type="submit" value="Add to List">
   </form>
 </div>
 <div class="mx-5">
-  <ul>
-    <th:block th:each="item : ${myList}">
-      <li th:text="${item}"></li>
-    </th:block>
-  </ul>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+    </thead>
+    <tr th:each="item : ${myList}">
+      <td th:text="${item.name}"></td>
+    </tr>
+  </table>
 </div>
 </body>
 </html>
