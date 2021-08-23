@@ -17,7 +17,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/home").permitAll()
+                    .antMatchers("/", "/home", "/**.css").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -28,17 +28,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                     .permitAll();
     }
 
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                    .username("amelia")
-                    .password("password")
-                    .roles("USER")
-                    .build();
-
-        return new InMemoryUserDetailsManager(user);
-    }
+//    @Bean
+//    @Override
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user =
+//                User.withDefaultPasswordEncoder()
+//                    .username("amelia")
+//                    .password("password")
+//                    .roles("USER")
+//                    .build();
+//
+//        return new InMemoryUserDetailsManager(user);
+//    }
 
 }
