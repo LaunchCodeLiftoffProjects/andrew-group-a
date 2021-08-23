@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-<div class="container">
+<div>
   <header th:replace="fragments :: header"></header>
 </div>
 <div class="container">
@@ -13,23 +13,21 @@
   </div>
   <div class="row">
     <div class="col-lg-4">
-      <div class="bs-component">
-        <form method="post">
-          <input th:field="${item.name}">
+      <form method="post" class="d-flex">
+        <div class="input-group">
+          <input  class="list-group-item d-flex justify-content-between align-items-center w-75" th:field="${item.name}" placeholder="Add Item" aria-describedby="button-addon2">
           <p class="error" th:errors="${item.name}"></p>
-          <input type="submit" value="Add to List">
-        </form>
-      </div>
-      <div class="bs-component">
-        <ul th:each="item : ${myList}" class="list-group">
-          <li th:text="${item.name}" class="list-group-item d-flex justify-content-between align-items-center"></li>
-        </ul>
-      </div>
+          <button id="button-addon2" class="btn btn-dark d-flex w-25" type="submit">Add</button>
+        </div>
+      </form>
+      <ul th:each="item : ${myList}" class="list-group">
+        <li th:text="${item.name}" class="list-group-item d-flex justify-content-between align-items-center"></li>
+      </ul>
     </div>
-    <div class="col-lg-4">
-    </div>
-    <div class="col-lg-4">
-    </div>
+  </div>
+  <div class="col-lg-4">
+  </div>
+  <div class="col-lg-4">
   </div>
 </div>
 </body>
