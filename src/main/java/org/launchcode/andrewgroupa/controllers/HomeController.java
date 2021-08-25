@@ -16,15 +16,13 @@ public class HomeController {
     }
 
     @GetMapping("login")
-    public String login() { return "login"; }
+    public String login() {
+        return "login"; }
 
-    @PostMapping("login")
-    public String loggedin() {
-        return "home";
+
+
+    @GetMapping("logout/done")
+    public String logout(){
+        return "redirect:login?logout";
     }
-
-//    @GetMapping("logout")
-//    public String logout(){
-//        return "login";
-//    }
 }
