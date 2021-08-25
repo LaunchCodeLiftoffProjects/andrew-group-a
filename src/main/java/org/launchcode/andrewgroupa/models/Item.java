@@ -2,15 +2,21 @@ package org.launchcode.andrewgroupa.models;
 
 
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
 public class Item extends AbstractEntity {
 
-    @NotNull
-    @Size(min = 3, max = 255, message = "Item name but be between 3 and 250 characters.")
+    @NotBlank
+    @Size(min = 3, max = 20, message = "Item name but be between 3 and 20 characters.")
     private String name;
+
+    public Item() {}
+
+    public Item(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
