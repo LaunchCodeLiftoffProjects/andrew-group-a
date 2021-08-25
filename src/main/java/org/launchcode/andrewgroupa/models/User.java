@@ -21,22 +21,8 @@ public class User extends AbstractEntity {
 
     private boolean active;
 
-    private List<GrantedAuthority> authorities;
+    private String roles;
 
-    public User(String username, String pwHash, boolean active, List<GrantedAuthority> authorities) {
-        this.username = username;
-        this.pwHash = pwHash;
-        this.active = active;
-        this.authorities = authorities;
-    }
-
-    public User(){};
-
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-    public boolean isMatchingPassword(String password) {
-        return encoder.matches(password, pwHash);
-    }
     public String getUsername() {
         return username;
     }
@@ -61,11 +47,11 @@ public class User extends AbstractEntity {
         this.active = active;
     }
 
-    public List<GrantedAuthority> getAuthorities() {
-        return authorities;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setAuthorities(List<GrantedAuthority> authorities) {
-        this.authorities = authorities;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }
