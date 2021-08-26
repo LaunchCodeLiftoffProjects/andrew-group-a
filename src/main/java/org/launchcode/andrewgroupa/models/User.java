@@ -17,7 +17,7 @@ public class User extends AbstractEntity {
 
     @NotBlank
     @NotNull
-    private String pwHash;
+    private String password;
 
     private boolean active;
 
@@ -31,12 +31,12 @@ public class User extends AbstractEntity {
         this.username = username;
     }
 
-    public String getPwHash() {
-        return pwHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPwHash(String pwHash) {
-        this.pwHash = pwHash;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean isActive() {
