@@ -1,6 +1,7 @@
 package org.launchcode.andrewgroupa.controllers;
 
 import org.launchcode.andrewgroupa.data.ItemRepository;
+import org.launchcode.andrewgroupa.data.TagRepository;
 import org.launchcode.andrewgroupa.models.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ public class ListController {
 
   @Autowired
   private ItemRepository itemRepository;
+
+  @Autowired
+  TagRepository tagRepository;
 
   @GetMapping
   public String displayListAndAddItemForm(Model model) {
