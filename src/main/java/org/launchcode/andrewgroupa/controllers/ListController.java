@@ -3,6 +3,7 @@ package org.launchcode.andrewgroupa.controllers;
 import org.launchcode.andrewgroupa.data.ItemRepository;
 import org.launchcode.andrewgroupa.data.TagRepository;
 import org.launchcode.andrewgroupa.models.Item;
+import org.launchcode.andrewgroupa.models.Tag;
 import org.launchcode.andrewgroupa.models.dto.ItemTagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,8 +59,20 @@ public class ListController {
   @PostMapping("add-tag")
   public String processAddTagForm(@ModelAttribute @Valid ItemTagDTO itemTag,Errors errors,Model model){
 
-    return "";
+    if(!errors.hasErrors()){
+      Item item= itemTag.getItem();
+      Tag tag = itemTag.getTag();
+      if(!item.getTags().contains(tag)){
+        item.addTag(tag);
+        itemRepository.save(item);
+      }
+      return "redirect:list?itemId= " + item.getId();
+    }
+
+    return "redirect:add-tag";
   }
 
 
 }
+
+
