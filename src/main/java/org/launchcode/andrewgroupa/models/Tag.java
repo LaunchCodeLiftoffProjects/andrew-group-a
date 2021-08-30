@@ -1,6 +1,5 @@
 package org.launchcode.andrewgroupa.models;
 
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
@@ -9,33 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Item extends AbstractEntity {
+public class Tag extends AbstractEntity{
 
+    @Size(min = 1, max = 25)
     @NotBlank
-    @Size(min = 3, max = 20, message = "Item name but be between 3 and 20 characters.")
     private String name;
 
-    @ManyToMany
-    private final List<Tag> tags = new ArrayList<>();
+    @ManyToMany(mappedBy = "tags")
+    private final List<Item> items = new ArrayList<>();
 
-    public Item() {}
+    public Tag(){}
 
-    //getter setter and set name for list name
-    public Item(String name) {
+    public Tag(String name) {
         this.name = name;
     }
+
+    //getter setter and display method for tag name
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
     }
-
-    //getter and add method for tag
-    public List<Tag> getTags() {
-        return tags;
+    public String getDisplayName() {
+        return "#" + name + " ";
     }
-    public void addTag(Tag tag){
-        this.tags.add(tag);
+
+    //getter for item
+    public List<Item> getItems() {
+        return items;
     }
 }

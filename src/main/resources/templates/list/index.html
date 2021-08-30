@@ -29,6 +29,12 @@
   </div>
   <div class="col-lg-4">
   </div>
+  <div>
+    <span th:each="tag : ${tags}" th:text="${tag.displayName} + ' '"></span>
+  </div>
+  <div>
+    <a href="'list/add-tag?itemId=' + ${item.id}">Add tag</a>
+  </div>
 </div>
 </body>
 </html>
