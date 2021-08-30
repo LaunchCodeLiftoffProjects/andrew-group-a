@@ -20,22 +20,24 @@ public class Item extends AbstractEntity {
 
     public Item() {}
 
-    //getter setter and set name for list name
     public Item(String name) {
         this.name = name;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    //getter and add method for tag
     public List<Tag> getTags() {
         return tags;
     }
+
     public void addTag(Tag tag){
         this.tags.add(tag);
     }
+
 }

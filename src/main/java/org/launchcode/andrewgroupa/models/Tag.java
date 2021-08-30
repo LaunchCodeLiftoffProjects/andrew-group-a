@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Tag extends AbstractEntity{
+public class Tag extends AbstractEntity {
 
     @Size(min = 1, max = 25)
     @NotBlank
@@ -23,18 +23,18 @@ public class Tag extends AbstractEntity{
         this.name = name;
     }
 
-    //getter setter and display method for tag name
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getDisplayName() {
         return "#" + name + " ";
     }
 
-    //getter for item
     public List<Item> getItems() {
         return items;
     }
