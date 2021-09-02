@@ -23,6 +23,7 @@ public class HomeController {
 
     @GetMapping("logout/done")
     public String logout(){
-        return "redirect:login?logout";
+        return "redirect:/login?logout";
     }
+
 }
