@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<header th:replace="fragments :: header"></header>
+<body>
+
+    //Param if username already taken
+
+    //param if passwords don't match
+
+    <form th:action="@{register}" method ="post">
+        <div><label> Username: <input type="text" name="username"/> </label></div>
+        <div><label> Password: <input type="password" name="password"/> </label></div>
+        <div><label> Confirm Password: <input type="password" name="confirm password"></label></div>
+        <div><input type="submit" value="Create Account"/></div>
+    </form>
+</body>
+</html>

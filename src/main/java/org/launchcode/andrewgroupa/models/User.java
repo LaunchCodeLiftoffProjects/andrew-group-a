@@ -1,5 +1,6 @@
 package org.launchcode.andrewgroupa.models;
 
+import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
