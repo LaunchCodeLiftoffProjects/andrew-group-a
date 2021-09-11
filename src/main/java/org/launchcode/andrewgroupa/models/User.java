@@ -1,7 +1,5 @@
 package org.launchcode.andrewgroupa.models;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
