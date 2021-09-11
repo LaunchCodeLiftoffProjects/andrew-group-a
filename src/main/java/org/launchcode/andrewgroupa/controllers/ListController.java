@@ -8,6 +8,7 @@ import org.launchcode.andrewgroupa.models.MyUserDetails;
 import org.launchcode.andrewgroupa.models.ShoppingList;
 import org.launchcode.andrewgroupa.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.convert.JMoleculesConverters;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,12 +52,15 @@ public class ListController {
   }
 
   @GetMapping("shopping")
-  public String displayListsAndAddListForm(Model model) {
+  public String displayListsAndAddListForm(@AuthenticationPrincipal MyUserDetails userDetails, Model model) {
+    String currentUser = userDetails.getUsername();
+    Optional<User> optActiveUser = userRepository.findByUsername(currentUser);
+    User activeUser = optActiveUser.get();
     model.addAttribute("title", "Shopping Lists");
     model.addAttribute(new Item());
     model.addAttribute(new ShoppingList());
     model.addAttribute("myList", itemRepository.findAll());
-    model.addAttribute("shoppingLists", shoppingListRepository.findAll());
+    model.addAttribute("shoppingLists", activeUser.getShoppingLists());
     return "list/lists";
   }
 

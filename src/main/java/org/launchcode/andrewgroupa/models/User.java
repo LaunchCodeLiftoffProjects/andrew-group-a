@@ -57,4 +57,8 @@ public class User extends AbstractEntity {
     public void setRoles(String roles) {
         this.roles = roles;
     }
+
+    public List<ShoppingList> getShoppingLists() {
+        return shoppingLists;
+    }
 }

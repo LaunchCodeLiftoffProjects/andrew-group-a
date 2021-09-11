@@ -15,7 +15,6 @@ public class Item extends AbstractEntity {
     private String name;
 
     @ManyToOne
-    @NotNull(message = "List is required")
     private ShoppingList shoppingList;
 
     public Item() {}
