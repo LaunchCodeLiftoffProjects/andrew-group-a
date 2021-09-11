@@ -2,8 +2,10 @@ package org.launchcode.andrewgroupa.models;
 
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,6 +22,9 @@ public class User extends AbstractEntity {
     private boolean active;
 
     private String roles;
+
+    @OneToMany(mappedBy = "listOwner")
+    private final List<ShoppingList> shoppingLists = new ArrayList<>();
 
     public String getUsername() {
         return username;

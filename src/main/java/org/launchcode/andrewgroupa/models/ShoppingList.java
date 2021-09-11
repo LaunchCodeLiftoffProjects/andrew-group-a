@@ -1,6 +1,7 @@
 package org.launchcode.andrewgroupa.models;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -14,7 +15,8 @@ public class ShoppingList extends AbstractEntity{
     @Size(min = 3, max = 30, message = "List name but be between 3 and 30 characters.")
     private String name;
 
-    private Integer listOwner;
+    @ManyToOne
+    private User listOwner;
 
     @OneToMany(mappedBy = "shoppingList")
     private final List<Item> items = new ArrayList<>();
@@ -33,11 +35,11 @@ public class ShoppingList extends AbstractEntity{
         this.name = name;
     }
 
-    public Integer getListOwner() {
+    public User getListOwner() {
         return listOwner;
     }
 
-    public void setListOwner(Integer listOwner) {
+    public void setListOwner(User listOwner) {
         this.listOwner = listOwner;
     }
 

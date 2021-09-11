@@ -75,7 +75,7 @@ public class ListController {
     String currentUser = userDetails.getUsername();
     Optional<User> optActiveUser = userRepository.findByUsername(currentUser);
     User activeUser = optActiveUser.get();
-    newShoppingList.setListOwner(activeUser.getId());
+    newShoppingList.setListOwner(activeUser);
     shoppingListRepository.save(newShoppingList);
 
     return "redirect:/list/shopping";
