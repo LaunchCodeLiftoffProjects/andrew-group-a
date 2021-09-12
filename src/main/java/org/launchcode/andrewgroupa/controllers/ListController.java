@@ -85,4 +85,29 @@ public class ListController {
     return "redirect:/list/shopping";
   }
 
+  @GetMapping("detail")
+  public String displayListDetails(@RequestParam Integer listId, Model model) {
+    ShoppingList currentList = shoppingListRepository.findById(listId).get();
+    model.addAttribute(new Item());
+    model.addAttribute("currentList", currentList);
+    model.addAttribute("items", currentList.getItems());
+
+    return "list/detail";
+  }
+
+  @PostMapping("detail")
+  public String processItemAdditionToList(@RequestParam Integer listId, @ModelAttribute @Valid Item newItem,
+                                   Errors errors, Model model) {
+    if (errors.hasErrors()) {
+      ShoppingList currentList = shoppingListRepository.findById(listId).get();
+      model.addAttribute("currentList", currentList);
+      model.addAttribute("items", currentList.getItems());
+      return "list/detail";
+    }
+
+    ShoppingList currentList = shoppingListRepository.findById(listId).get();
+    newItem.setShoppingList(currentList);
+    itemRepository.save(newItem);
+    return "redirect:detail?listId=" +listId;
+  }
 }

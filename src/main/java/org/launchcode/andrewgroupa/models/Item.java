@@ -17,11 +17,18 @@ public class Item extends AbstractEntity {
     @ManyToOne
     private ShoppingList shoppingList;
 
+    public Item(String name, ShoppingList shoppingList) {
+        this.name = name;
+        this.shoppingList = shoppingList;
+    }
+    
     public Item() {}
 
     public Item(String name) {
         this.name = name;
     }
+
+
 
     public String getName() {
         return name;
