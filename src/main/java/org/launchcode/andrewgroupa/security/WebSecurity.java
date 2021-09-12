@@ -32,13 +32,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-
-                    .antMatchers("/", "/home", "/**.css").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .permitAll();
+                    .antMatchers("/list", "/tags", "/logout").permitAll()//.hasAnyRole("ADMIN", "USER")
+                    .antMatchers("/").permitAll()
+                    .and().formLogin()
+                    .loginPage("/login").permitAll();
 
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -53,18 +50,5 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
-
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                    .username("amelia")
-//                    .password("password")
-//                    .roles("USER")
-//                    .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 
 }

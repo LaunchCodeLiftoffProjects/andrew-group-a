@@ -3,10 +3,13 @@ package org.launchcode.andrewgroupa.controllers;
 import org.launchcode.andrewgroupa.data.ItemRepository;
 import org.launchcode.andrewgroupa.data.ShoppingListRepository;
 import org.launchcode.andrewgroupa.data.UserRepository;
-import org.launchcode.andrewgroupa.models.Item;
 import org.launchcode.andrewgroupa.models.MyUserDetails;
 import org.launchcode.andrewgroupa.models.ShoppingList;
 import org.launchcode.andrewgroupa.models.User;
+import org.launchcode.andrewgroupa.data.TagRepository;
+import org.launchcode.andrewgroupa.models.Item;
+import org.launchcode.andrewgroupa.models.Tag;
+import org.launchcode.andrewgroupa.models.dto.ItemTagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.convert.JMoleculesConverters;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -31,6 +34,10 @@ public class ListController {
   @Autowired
   private UserRepository userRepository;
 
+  @Autowired
+  private TagRepository tagRepository;
+
+
   @GetMapping
   public String displayListAndAddItemForm(Model model) {
     model.addAttribute("title", "My List");
@@ -50,6 +57,7 @@ public class ListController {
     itemRepository.save(newItem);
     return "redirect:/list";
   }
+
 
   @GetMapping("shopping")
   public String displayListsAndAddListForm(@AuthenticationPrincipal MyUserDetails userDetails, Model model) {
@@ -111,3 +119,37 @@ public class ListController {
     return "redirect:detail?listId=" +listId;
   }
 }
+
+  @GetMapping("add-tag")
+  public String displayAddTagForm(@RequestParam Integer itemId,Model model){
+    Optional<Item> result = itemRepository.findById(itemId);
+    Item item= result.get();
+    model.addAttribute("title","Add tag to : " + item.getName() );
+    model.addAttribute("tags",tagRepository.findAll());
+    ItemTagDTO itemTag = new ItemTagDTO();
+    itemTag.setItem(item);
+    model.addAttribute("eventTag",new ItemTagDTO());
+    return "list/add-tag.html";
+  }
+
+  @PostMapping("add-tag")
+  public String processAddTagForm(@ModelAttribute @Valid ItemTagDTO itemTag,Errors errors,Model model){
+
+    if(!errors.hasErrors()){
+      Item item= itemTag.getItem();
+      Tag tag = itemTag.getTag();
+      if(!item.getTags().contains(tag)){
+        item.addTag(tag);
+        itemRepository.save(item);
+      }
+      return "redirect:list?itemId= " + item.getId();
+    }
+
+    return "redirect:add-tag";
+  }
+
+
+}
+
+
+
