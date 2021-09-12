@@ -1,11 +1,18 @@
 package org.launchcode.andrewgroupa.controllers;
 
 import org.launchcode.andrewgroupa.data.ItemRepository;
+import org.launchcode.andrewgroupa.data.ShoppingListRepository;
+import org.launchcode.andrewgroupa.data.UserRepository;
+import org.launchcode.andrewgroupa.models.MyUserDetails;
+import org.launchcode.andrewgroupa.models.ShoppingList;
+import org.launchcode.andrewgroupa.models.User;
 import org.launchcode.andrewgroupa.data.TagRepository;
 import org.launchcode.andrewgroupa.models.Item;
 import org.launchcode.andrewgroupa.models.Tag;
 import org.launchcode.andrewgroupa.models.dto.ItemTagDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.convert.JMoleculesConverters;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -22,7 +29,14 @@ public class ListController {
   private ItemRepository itemRepository;
 
   @Autowired
+  private ShoppingListRepository shoppingListRepository;
+
+  @Autowired
+  private UserRepository userRepository;
+
+  @Autowired
   private TagRepository tagRepository;
+
 
   @GetMapping
   public String displayListAndAddItemForm(Model model) {
@@ -43,6 +57,68 @@ public class ListController {
     itemRepository.save(newItem);
     return "redirect:/list";
   }
+
+
+  @GetMapping("shopping")
+  public String displayListsAndAddListForm(@AuthenticationPrincipal MyUserDetails userDetails, Model model) {
+    String currentUser = userDetails.getUsername();
+    Optional<User> optActiveUser = userRepository.findByUsername(currentUser);
+    User activeUser = optActiveUser.get();
+    model.addAttribute("title", "Shopping Lists");
+    model.addAttribute(new Item());
+    model.addAttribute(new ShoppingList());
+    model.addAttribute("myList", itemRepository.findAll());
+    model.addAttribute("shoppingLists", activeUser.getShoppingLists());
+    return "list/lists";
+  }
+
+  @PostMapping("shopping")
+  public String processAddListForm(@ModelAttribute @Valid ShoppingList newShoppingList,
+                                   @AuthenticationPrincipal MyUserDetails userDetails,
+                                   Errors errors, Model model) {
+    if (errors.hasErrors()) {
+      model.addAttribute("title", "Shopping Lists");
+      model.addAttribute(new Item());
+      model.addAttribute(new ShoppingList());
+      model.addAttribute("myList", itemRepository.findAll());
+      model.addAttribute("shoppingLists", shoppingListRepository.findAll());
+      return "list/lists";
+    }
+    String currentUser = userDetails.getUsername();
+    Optional<User> optActiveUser = userRepository.findByUsername(currentUser);
+    User activeUser = optActiveUser.get();
+    newShoppingList.setListOwner(activeUser);
+    shoppingListRepository.save(newShoppingList);
+
+    return "redirect:/list/shopping";
+  }
+
+  @GetMapping("detail")
+  public String displayListDetails(@RequestParam Integer listId, Model model) {
+    ShoppingList currentList = shoppingListRepository.findById(listId).get();
+    model.addAttribute(new Item());
+    model.addAttribute("currentList", currentList);
+    model.addAttribute("items", currentList.getItems());
+
+    return "list/detail";
+  }
+
+  @PostMapping("detail")
+  public String processItemAdditionToList(@RequestParam Integer listId, @ModelAttribute @Valid Item newItem,
+                                   Errors errors, Model model) {
+    if (errors.hasErrors()) {
+      ShoppingList currentList = shoppingListRepository.findById(listId).get();
+      model.addAttribute("currentList", currentList);
+      model.addAttribute("items", currentList.getItems());
+      return "list/detail";
+    }
+
+    ShoppingList currentList = shoppingListRepository.findById(listId).get();
+    newItem.setShoppingList(currentList);
+    itemRepository.save(newItem);
+    return "redirect:detail?listId=" +listId;
+  }
+}
 
   @GetMapping("add-tag")
   public String displayAddTagForm(@RequestParam Integer itemId,Model model){
@@ -74,5 +150,6 @@ public class ListController {
 
 
 }
+
 
 
