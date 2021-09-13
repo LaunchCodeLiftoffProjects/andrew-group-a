@@ -1,11 +1,16 @@
 package org.launchcode.andrewgroupa.models;
 
+
 import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,6 +27,9 @@ public class User extends AbstractEntity {
     private boolean active;
 
     private String roles;
+
+    @OneToMany(mappedBy = "listOwner")
+    private final List<ShoppingList> shoppingLists = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -53,5 +61,9 @@ public class User extends AbstractEntity {
 
     public void setRoles(String roles) {
         this.roles = roles;
+    }
+
+    public List<ShoppingList> getShoppingLists() {
+        return shoppingLists;
     }
 }
