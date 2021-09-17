@@ -69,7 +69,7 @@ public class ListController {
     model.addAttribute(new ShoppingList());
     model.addAttribute("myList", itemRepository.findAll());
     model.addAttribute("shoppingLists", activeUser.getShoppingLists());
-    return "list/lists";
+    return "list/shoppinglists";
   }
 
   @PostMapping("shopping")
@@ -82,7 +82,7 @@ public class ListController {
       model.addAttribute(new ShoppingList());
       model.addAttribute("myList", itemRepository.findAll());
       model.addAttribute("shoppingLists", shoppingListRepository.findAll());
-      return "list/lists";
+      return "list/shoppinglists";
     }
     String currentUser = userDetails.getUsername();
     Optional<User> optActiveUser = userRepository.findByUsername(currentUser);
@@ -118,7 +118,6 @@ public class ListController {
     itemRepository.save(newItem);
     return "redirect:detail?listId=" +listId;
   }
-}
 
   @GetMapping("add-tag")
   public String displayAddTagForm(@RequestParam Integer itemId,Model model){
@@ -128,24 +127,29 @@ public class ListController {
     model.addAttribute("tags",tagRepository.findAll());
     ItemTagDTO itemTag = new ItemTagDTO();
     itemTag.setItem(item);
-    model.addAttribute("eventTag",new ItemTagDTO());
+    model.addAttribute("itemTag",new ItemTagDTO());
     return "list/add-tag.html";
   }
 
   @PostMapping("add-tag")
-  public String processAddTagForm(@ModelAttribute @Valid ItemTagDTO itemTag,Errors errors,Model model){
+  public String processAddTagForm(@ModelAttribute @Valid ItemTagDTO itemTag,
+                                  Integer itemId,
+                                  Errors errors,Model model){
+
+    Optional<Item> result = itemRepository.findById(itemId);
+    Item item= result.get();
 
     if(!errors.hasErrors()){
-      Item item= itemTag.getItem();
+      //Item item= itemTag.getItem();
       Tag tag = itemTag.getTag();
       if(!item.getTags().contains(tag)){
         item.addTag(tag);
         itemRepository.save(item);
       }
-      return "redirect:list?itemId= " + item.getId();
+      return "redirect:/list/detail?listId=" + item.getShoppingList().getId();
     }
 
-    return "redirect:add-tag";
+    return "redirect:/list/add-tag?itemId=" + itemId;
   }
 
 
