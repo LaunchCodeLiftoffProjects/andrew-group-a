@@ -13,19 +13,19 @@
   </div>
   <div class="row">
     <div class="col-lg-4">
-      <form method="post" class="d-flex">
-        <div class="input-group">
-          <input type="hidden" th:field="${itemTag.event}" class="list-group-item d-flex justify-content-between align-items-center w-75" aria-describedby="button-addon2">
+      <form method="post">
+        <div class="form-group">
+          <input type="hidden" th:field="${itemTag.item.id}">
+          <div class="select-group">
+            <select th:field="${itemTag.tag}">
+              <option th:each="tag:${tags}"
+                      th:value="${tag.id}"
+                      th:text="${tag.name}"
+              ></option>
+            </select>
+          </div>
         </div>
-        <div class="select-group">
-          <select th:field="${itemTag.tag}">
-            <option th:each="tag:${tags}"
-                    th:value="${tag.id}"
-                    th:text="${tag.name}"
-            ></option>
-          </select>
-        </div>
-        <button id="button-addon2" class="btn btn-dark d-flex w-25" type="submit">Add</button>
+        <input type="submit" class="btn btn-success" value="Add Tag">
       </form>
     </div>
   </div>
