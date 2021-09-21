@@ -1,5 +1,7 @@
 package org.launchcode.andrewgroupa.controllers;
 
+import org.hibernate.NonUniqueObjectException;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.launchcode.andrewgroupa.data.UserRepository;
 import org.launchcode.andrewgroupa.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 
 @Controller
 @RequestMapping("register")
@@ -27,14 +30,22 @@ public class RegistrationController {
 
     @PostMapping
     public String finishRegistration(@ModelAttribute @Valid User newUser, Errors errors, Model model){
+
+        System.out.println("looking up " + newUser.getUsername());
         if (errors.hasErrors()) {
             return "/registration?error";
         }
 
-        newUser.setRoles("USER");
-        newUser.setActive(true);
-        userRepository.save(newUser);
-        return "redirect:/login";
+        try {
+            System.out.println("hello!");
+            newUser.setRoles("USER");
+            newUser.setActive(true);
+            userRepository.save(newUser);
+            return "redirect:/login";
+        } catch (Exception SqlError){
+            return "redirect:/registration?error";
+        }
+
     }
 
 }
