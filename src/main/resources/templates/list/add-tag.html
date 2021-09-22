@@ -29,7 +29,10 @@
       </form>
     </div>
   </div>
+  <br>
   <div class="col-lg-4">
+    <h3>Current Tag on Item</h3>
+    <p><span th:each="tag : ${itemTag.item.tags}" th:text="${tag.displayName}"></span></p>
   </div>
   <div class="col-lg-4">
   </div>
