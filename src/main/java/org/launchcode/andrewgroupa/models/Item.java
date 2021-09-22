@@ -25,7 +25,7 @@ public class Item extends AbstractEntity {
         this.name = name;
         this.shoppingList = shoppingList;
     }
-    
+
 
     @ManyToMany
     private final List<Tag> tags = new ArrayList<>();
@@ -62,5 +62,7 @@ public class Item extends AbstractEntity {
     public void addTag(Tag tag){
         this.tags.add(tag);
     }
+
+
 
 }

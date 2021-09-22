@@ -128,7 +128,7 @@ public class ListController {
     model.addAttribute("tags",tagRepository.findAll());
     ItemTagDTO itemTag = new ItemTagDTO();
     itemTag.setItem(item);
-    model.addAttribute("itemTag",new ItemTagDTO());
+    model.addAttribute("itemTag", itemTag);
     return "list/add-tag.html";
   }
 
