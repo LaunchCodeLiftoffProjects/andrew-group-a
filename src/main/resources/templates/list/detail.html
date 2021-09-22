@@ -20,10 +20,27 @@
             </form>
         </div>
         <div>
-            <ul th:each="item : ${items}" class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center"> <a th:href="'/list/add-tag?itemId=' + ${item.id}" th:text="${item.name}"></a></li>
-            </ul>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Tags</th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${items}">
+                        <td th:text="${item.name}"></td>
+                        <td>Number</td>
+                        <td><span th:each="tag : ${item.tags}" th:text="${tag.displayName}"></span></td>
+                        <td><a th:href="'/list/add-tag?itemId=' + ${item.id}" th:text="Edit"></a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
     </div>
 </div>
 </body>
