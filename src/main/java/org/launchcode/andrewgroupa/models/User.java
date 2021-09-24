@@ -23,6 +23,7 @@ public class User extends AbstractEntity {
     @NotNull
     @NotBlank
     @Column(unique = true)
+
     private String username;
 
     @NotBlank

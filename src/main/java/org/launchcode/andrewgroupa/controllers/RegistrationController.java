@@ -43,8 +43,9 @@ public class RegistrationController {
             newUser.setActive(true);
             userRepository.save(newUser);
             return "redirect:/login";
-        } catch (Exception duplicateUser){
-            return "redirect:/registration?error";
+        } catch (Exception e){
+            System.out.println("Caught" + e.getMessage());
+            return "redirect:/register?error";
         }
 
     }

@@ -22,6 +22,8 @@ public class DuplicateExceptionHandler {
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
 
+        System.out.println("There was an error here");
+
         return new ResponseEntity<>(duplicateException, badRequest);
     }
 
