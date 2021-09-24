@@ -1,6 +1,7 @@
 package org.launchcode.andrewgroupa.models;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.ManyToMany;
@@ -15,6 +16,7 @@ public class Item extends AbstractEntity {
 
     @NotBlank
     @Size(min = 3, max = 20, message = "Item name but be between 3 and 20 characters.")
+    @Column(unique = true)
     private String name;
 
 
