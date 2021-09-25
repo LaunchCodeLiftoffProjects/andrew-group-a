@@ -43,16 +43,15 @@
         <tr th:each="item : ${items}">
           <td th:text="${item.name}"></td>
           <td>
-            <form method="post"
-                  th:action="'/list/quantity?quantity=' + ${item.quantity} + '&&itemId=' + ${item.id} + '&&listId=' + ${currentList.id}">
-              <input th:value="${item.quantity}"
-                     type="number">
-            </form>
+            <span th:text="${item.quantity}"></span>
           </td>
           <td><span th:each="tag : ${item.tags}"
                     th:text="${tag.displayName}"></span></td>
-          <td><a th:href="'/list/add-tag?itemId=' + ${item.id}"
-                 th:text="Edit"></a></td>
+          <td><a th:href="'/list/edit?itemId=' + ${item.id}"
+                 th:text="Edit"></a>
+            <!--            <a th:href="'/list/add-tag?itemId=' + ${item.id}"-->
+            <!--                 th:text="Edit"></a>-->
+          </td>
         </tr>
         </tbody>
       </table>

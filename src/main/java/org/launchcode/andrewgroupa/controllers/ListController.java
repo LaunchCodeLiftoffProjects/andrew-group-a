@@ -122,17 +122,18 @@ public class ListController {
     return "redirect:detail?listId=" + listId;
   }
 
-  @PostMapping("quantity")
-  public String updateItemQuantity(@RequestParam Integer quantity, @RequestParam Integer listId,
-      @RequestParam Integer itemId) throws Exception {
-    Optional<Item> result = itemRepository.findById(itemId);
-    if (result.isEmpty()) {
-      throw new Exception("Invalid Item");
-    }
-    Item item = result.get();
-    item.setQuantity(quantity);
-    return "redirect:detail?listId=" + listId;
-  }
+//  @PostMapping("quantity")
+//  public String updateItemQuantity(@RequestParam Integer newQuantity, @RequestParam Integer listId,
+//      @RequestParam Integer itemId) throws Exception {
+//    Optional<Item> result = itemRepository.findById(itemId);
+//    if (result.isEmpty()) {
+//      throw new Exception("Invalid Item");
+//    }
+//    Item item = result.get();
+//    item.setQuantity(newQuantity);
+//    itemRepository.save(item);
+//    return "redirect:detail?listId=" + listId;
+//  }
 
   @GetMapping("add-tag")
   public String displayAddTagForm(@RequestParam Integer itemId, Model model) {
@@ -167,7 +168,38 @@ public class ListController {
     return "redirect:/list/add-tag?itemId=" + itemId;
   }
 
+  @GetMapping("edit")
+  public String displayEditCurrentItem(@RequestParam @Valid Integer itemId, Model model) {
+    Optional<Item> optItem = itemRepository.findById(itemId);
+    if (optItem.isEmpty()) {
+      return "redirect:edit";
+    }
+    Item item = optItem.get();
+    model.addAttribute("tags", tagRepository.findAll());
+    ItemTagDTO itemTag = new ItemTagDTO();
+    itemTag.setItem(item);
+    model.addAttribute(itemTag);
+    return "/list/edit?itemId=" + itemId;
+  }
 
+  @PostMapping("edit")
+  public String processEditCurrentItem(
+      @ModelAttribute @Valid ItemTagDTO itemTag,
+      Errors errors,
+      Model model
+  ) {
+    if (!errors.hasErrors()) {
+      Item item = itemTag.getItem();
+      Tag tag = itemTag.getTag();
+      if (!item.getTags().contains(tag)) {
+        item.addTag(tag);
+        itemRepository.save(item);
+      }
+      return "redirect:/list/detail?listId=" + item.getShoppingList().getId();
+    }
+
+    return "redirect:edit";
+  }
 }
 
 
