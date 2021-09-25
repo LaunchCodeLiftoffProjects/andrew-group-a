@@ -36,9 +36,9 @@ public class Item extends AbstractEntity {
     this.complete = false;
   }
 
-  public Item(String name) {
-    this.name = name;
-  }
+    public Item(String name) {
+        this.name = name;
+    }
 
   public boolean isComplete() {
     return complete;
