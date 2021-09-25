@@ -1,47 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
 <div>
-    <header th:replace="fragments :: header"></header>
+  <header th:replace="fragments :: header"></header>
 </div>
 <div class="container">
-    <div class="content">
-        <div>
-            <h2 th:text="'Current List: ' + ${currentList.name}"></h2>
-        </div>
-        <div>
-            <form method="post" class="d-flex">
-                <div class="input-group">
-                    <input class="list-group-item d-flex justify-content-between align-items-center w-75" th:field="${item.name}" placeholder="Add Item" aria-describedby="button-addon2">
-                    <p class="error" th:errors="${item.name}"></p>
-                    <button id="button-addon2" class="btn btn-dark d-flex w-25" type="submit">Add</button>
-                </div>
-            </form>
-        </div>
-        <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Tags</th>
-                        <th>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="item : ${items}">
-                        <td th:text="${item.name}"></td>
-                        <td>Number</td>
-                        <td><span th:each="tag : ${item.tags}" th:text="${tag.displayName}"></span></td>
-                        <td><a th:href="'/list/add-tag?itemId=' + ${item.id}" th:text="Edit"></a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
+  <div class="content">
+    <div>
+      <h2 th:text="'Current List: ' + ${currentList.name}"></h2>
     </div>
+    <div>
+      <form class="d-flex"
+            method="post">
+        <div class="input-group">
+          <input aria-describedby="button-addon2"
+                 class="list-group-item w-75"
+                 placeholder="Add Item"
+                 th:field="${item.name}">
+          <p class="error"
+             th:errors="${item.name}"></p>
+          <button class="btn btn-dark d-flex w-25"
+                  id="button-addon2"
+                  type="submit">Add
+          </button>
+        </div>
+      </form>
+    </div>
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Tags</th>
+          <th>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+          <td th:text="${item.name}"></td>
+          <td>
+            <form method="post"
+                  th:action="'/list/quantity?quantity=' + ${item.quantity} + '&&itemId=' + ${item.id} + '&&listId=' + ${currentList.id}">
+              <input th:value="${item.quantity}"
+                     type="number">
+            </form>
+          </td>
+          <td><span th:each="tag : ${item.tags}"
+                    th:text="${tag.displayName}"></span></td>
+          <td><a th:href="'/list/add-tag?itemId=' + ${item.id}"
+                 th:text="Edit"></a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 </div>
 </body>
 </html>
