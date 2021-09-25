@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div>
+  <header th:replace="fragments :: header"></header>
+</div>
+<div class="container">
+  <div class="content">
+    <div>
+      <h2 th:text="'Current Item: ' + ${itemTag.item.name}"></h2>
+    </div>
+    <div>
+      <form method="post">
+        <div class="form-group">
+          <input th:field="${itemTag.item.id}"
+                 type="hidden">
+          <div class="select-group">
+            <select th:field="${itemTag.tag}">
+              <option th:each="tag:${tags}"
+                      th:text="${tag.name}"
+                      th:value="${tag.id}"
+              ></option>
+            </select>
+          </div>
+        </div>
+        <input class="btn btn-dark"
+               type="submit"
+               value="Add Tag">
+      </form>
+      <!--      <form action="#"-->
+      <!--            method="post"-->
+      <!--            th:action="@{/edit}"-->
+      <!--            th:object="${itemTag}">-->
+      <!--        <input th:field="*{item}"-->
+      <!--               type="hidden">-->
+      <!--        <div class="input-group">-->
+      <!--          <label>Complete:</label>-->
+      <!--          <input class="form-control"-->
+      <!--                 th:field="*{item.complete}"-->
+      <!--                 type="checkbox">-->
+      <!--        </div>-->
+      <!--        <div>-->
+      <!--          <label>Quantity:</label>-->
+      <!--          <input class="form-control"-->
+      <!--                 th:field="*{item.quantity}"-->
+      <!--                 type="number">-->
+      <!--        </div>-->
+      <!--        <div class="input-group">-->
+      <!--          <label>Tags:</label>-->
+      <!--          <select th:field="*{itemTag.tag}">-->
+      <!--            <option th:each="t : ${tags}"-->
+      <!--                    th:text="${t.displayName}"-->
+      <!--                    th:value="${t}"></option>-->
+      <!--          </select>-->
+      <!--        </div>-->
+      <!--        <div>-->
+      <!--          <button type="submit">Submit</button>-->
+      <!--        </div>-->
+      <!--      </form>-->
+    </div>
+  </div>
+</div>
+</body>
+</html>
