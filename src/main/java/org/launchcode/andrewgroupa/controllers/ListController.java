@@ -9,7 +9,7 @@ import org.launchcode.andrewgroupa.models.User;
 import org.launchcode.andrewgroupa.data.TagRepository;
 import org.launchcode.andrewgroupa.models.Item;
 import org.launchcode.andrewgroupa.models.Tag;
-import org.launchcode.andrewgroupa.models.dto.ItemTagDTO;
+import org.launchcode.andrewgroupa.models.dto.EditItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,7 @@ public class ListController {
 
   @GetMapping
   public String displayListAndAddItemForm(Model model) {
-    model.addAttribute("title", "My List");
+    model.addAttribute("title", "All Items");
     model.addAttribute(new Item());
     model.addAttribute("myList", itemRepository.findAll());
     return "list/index";
@@ -122,33 +122,20 @@ public class ListController {
     return "redirect:detail?listId=" + listId;
   }
 
-//  @PostMapping("quantity")
-//  public String updateItemQuantity(@RequestParam Integer newQuantity, @RequestParam Integer listId,
-//      @RequestParam Integer itemId) throws Exception {
-//    Optional<Item> result = itemRepository.findById(itemId);
-//    if (result.isEmpty()) {
-//      throw new Exception("Invalid Item");
-//    }
-//    Item item = result.get();
-//    item.setQuantity(newQuantity);
-//    itemRepository.save(item);
-//    return "redirect:detail?listId=" + listId;
-//  }
-
-  @GetMapping("add-tag")
+  @GetMapping("edit")
   public String displayAddTagForm(@RequestParam Integer itemId, Model model) {
     Optional<Item> result = itemRepository.findById(itemId);
     Item item = result.get();
-    model.addAttribute("title", "Add tag to : " + item.getName());
+    model.addAttribute("title", "Edit : " + item.getName());
     model.addAttribute("tags", tagRepository.findAll());
-    ItemTagDTO itemTag = new ItemTagDTO();
-    itemTag.setItem(item);
-    model.addAttribute("itemTag", itemTag);
-    return "list/add-tag.html";
+    EditItemDTO itemDTO = new EditItemDTO();
+    itemDTO.setItem(item);
+    model.addAttribute("itemDTO", itemDTO);
+    return "list/edit.html";
   }
 
-  @PostMapping("add-tag")
-  public String processAddTagForm(@ModelAttribute @Valid ItemTagDTO itemTag,
+  @PostMapping("edit")
+  public String processAddTagForm(@ModelAttribute @Valid EditItemDTO itemDTO,
       Integer itemId,
       Errors errors, Model model) {
 
@@ -156,50 +143,19 @@ public class ListController {
     Item item = result.get();
 
     if (!errors.hasErrors()) {
-      //Item item= itemTag.getItem();
-      Tag tag = itemTag.getTag();
+      Tag tag = itemDTO.getTag();
       if (!item.getTags().contains(tag)) {
         item.addTag(tag);
-        itemRepository.save(item);
       }
+
+      item.setQuantity(itemDTO.getItem().getQuantity());
+      itemRepository.save(item);
       return "redirect:/list/detail?listId=" + item.getShoppingList().getId();
     }
 
-    return "redirect:/list/add-tag?itemId=" + itemId;
+    return "redirect:/list/edit?itemId=" + itemId;
   }
 
-  @GetMapping("edit")
-  public String displayEditCurrentItem(@RequestParam @Valid Integer itemId, Model model) {
-    Optional<Item> optItem = itemRepository.findById(itemId);
-    if (optItem.isEmpty()) {
-      return "redirect:edit";
-    }
-    Item item = optItem.get();
-    model.addAttribute("tags", tagRepository.findAll());
-    ItemTagDTO itemTag = new ItemTagDTO();
-    itemTag.setItem(item);
-    model.addAttribute(itemTag);
-    return "/list/edit?itemId=" + itemId;
-  }
-
-  @PostMapping("edit")
-  public String processEditCurrentItem(
-      @ModelAttribute @Valid ItemTagDTO itemTag,
-      Errors errors,
-      Model model
-  ) {
-    if (!errors.hasErrors()) {
-      Item item = itemTag.getItem();
-      Tag tag = itemTag.getTag();
-      if (!item.getTags().contains(tag)) {
-        item.addTag(tag);
-        itemRepository.save(item);
-      }
-      return "redirect:/list/detail?listId=" + item.getShoppingList().getId();
-    }
-
-    return "redirect:edit";
-  }
 }
 
 

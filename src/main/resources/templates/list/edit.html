@@ -9,56 +9,36 @@
 <div class="container">
   <div class="content">
     <div>
-      <h2 th:text="'Current Item: ' + ${itemTag.item.name}"></h2>
+      <h2 th:text="${title}"></h2>
     </div>
-    <div>
+    <div class="col-lg-8">
       <form method="post">
         <div class="form-group">
-          <input th:field="${itemTag.item.id}"
-                 type="hidden">
-          <div class="select-group">
-            <select th:field="${itemTag.tag}">
-              <option th:each="tag:${tags}"
-                      th:text="${tag.name}"
-                      th:value="${tag.id}"
-              ></option>
-            </select>
-          </div>
+          <label for="quantity">Quantity</label>
+          <input class="form-control mx-sm-3"
+                 id="quantity"
+                 th:field="${itemDTO.item.quantity}"
+                 type="number">
         </div>
-        <input class="btn btn-dark"
-               type="submit"
-               value="Add Tag">
+        <input th:field="${itemDTO.item.id}"
+               type="hidden">
+        <div class="select-group mb-3">
+          <select th:field="${itemDTO.tag}">
+            <option selected
+                    value="">Add tags
+            </option>
+            <option th:each="tag:${tags}"
+                    th:text="${tag.name}"
+                    th:value="${tag.id}"
+            ></option>
+          </select>
+        </div>
+        <div class="form-group m-3">
+          <button class="btn btn-dark"
+                  type="submit">Apply Changes
+          </button>
+        </div>
       </form>
-      <!--      <form action="#"-->
-      <!--            method="post"-->
-      <!--            th:action="@{/edit}"-->
-      <!--            th:object="${itemTag}">-->
-      <!--        <input th:field="*{item}"-->
-      <!--               type="hidden">-->
-      <!--        <div class="input-group">-->
-      <!--          <label>Complete:</label>-->
-      <!--          <input class="form-control"-->
-      <!--                 th:field="*{item.complete}"-->
-      <!--                 type="checkbox">-->
-      <!--        </div>-->
-      <!--        <div>-->
-      <!--          <label>Quantity:</label>-->
-      <!--          <input class="form-control"-->
-      <!--                 th:field="*{item.quantity}"-->
-      <!--                 type="number">-->
-      <!--        </div>-->
-      <!--        <div class="input-group">-->
-      <!--          <label>Tags:</label>-->
-      <!--          <select th:field="*{itemTag.tag}">-->
-      <!--            <option th:each="t : ${tags}"-->
-      <!--                    th:text="${t.displayName}"-->
-      <!--                    th:value="${t}"></option>-->
-      <!--          </select>-->
-      <!--        </div>-->
-      <!--        <div>-->
-      <!--          <button type="submit">Submit</button>-->
-      <!--        </div>-->
-      <!--      </form>-->
     </div>
   </div>
 </div>
