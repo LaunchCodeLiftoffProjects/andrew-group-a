@@ -7,29 +7,39 @@
   <header th:replace="fragments :: header"></header>
 </div>
 <div class="container">
-  <div class="row">
-    <h2 th:text="${title}"></h2>
+  <div>
+    <div>
+      <h2 th:text="${title}"></h2>
+    </div>
   </div>
-  <div class="row">
-    <div class="col-4">
-      <div class="bs-component">
-        <form method="post">
-          <div class="input-group mb-3">
-            <input th:field="${tag.name}">
-            <input class="btn btn-dark"
-                   type="submit"
-                   value="Add">
-            <p class="error"
-               th:errors="${tag.name}"></p>
-          </div>
-        </form>
-      </div>
-      <div class="bs-component">
+  <div class="container">
+    <div class="content row">
+      <div class="col-lg-4">
         <ul class="list-group"
             th:each="tag : ${tags}">
-          <li class="list-group-item d-flex justify-content-between align-items-center"
+          <li class="list-group-item"
               th:text="${tag.displayName}"></li>
         </ul>
+      </div>
+      <div class="col-lg-4">
+        <form method="post">
+          <div class="input-group mb-3">
+          <span class="input-group-text"
+                id="addon-1">#</span>
+            <input aria-describedby="addon-1"
+                   aria-label="Tag"
+                   class="form-control"
+                   placeholder="Create New Tag"
+                   th:field="${tag.name}">
+            <div>
+              <input class="btn btn-dark"
+                     type="submit"
+                     value="Add">
+              <p class="error"
+                 th:errors="${tag.name}"></p>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
