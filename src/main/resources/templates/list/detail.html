@@ -30,6 +30,7 @@
       <table class="table">
         <thead>
         <tr>
+          <th></th>
           <th>Item</th>
           <th>Quantity</th>
           <th>Tags</th>
@@ -39,6 +40,15 @@
         </thead>
         <tbody>
         <tr th:each="item : ${items}">
+          <td>
+            <form method="post"
+                  th:action="@{item.setComplete}">
+              <input th:field="${item.id}"
+                     type="hidden">
+              <!--              <input th:field="${item.complete}"-->
+              <!--                     type="checkbox">-->
+            </form>
+          </td>
           <td th:text="${item.name}"></td>
           <td>
             <span th:text="${item.quantity}"></span>
