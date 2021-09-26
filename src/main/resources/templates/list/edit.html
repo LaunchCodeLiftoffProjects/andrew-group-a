@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<div>
+  <header th:replace="fragments :: header"></header>
+</div>
+<div class="container">
+  <div class="content">
+    <div>
+      <h2 th:text="${title}"></h2>
+    </div>
+    <div class="col-lg-8">
+      <form method="post">
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input class="form-control mx-sm-3"
+                 id="quantity"
+                 th:field="${itemDTO.item.quantity}"
+                 type="number">
+        </div>
+        <input th:field="${itemDTO.item.id}"
+               type="hidden">
+        <div class="select-group mb-3">
+          <select th:field="${itemDTO.tag}">
+            <option selected
+                    value="">Add tags
+            </option>
+            <option th:each="tag:${tags}"
+                    th:text="${tag.name}"
+                    th:value="${tag.id}"
+            ></option>
+          </select>
+        </div>
+        <div class="form-group m-3">
+          <button class="btn btn-dark"
+                  type="submit">Apply Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

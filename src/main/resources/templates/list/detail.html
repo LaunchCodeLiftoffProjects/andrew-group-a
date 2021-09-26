@@ -1,30 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
 <div>
-    <header th:replace="fragments :: header"></header>
+  <header th:replace="fragments :: header"></header>
 </div>
 <div class="container">
-    <div class="content">
-        <div>
-            <h2 th:text="'Current List: ' + ${currentList.name}"></h2>
+  <div class="content">
+    <h2 th:text="'Current List: ' + ${currentList.name}"></h2>
+    <div>
+      <form class="d-flex"
+            method="post">
+        <div class="input-group">
+          <input aria-describedby="button-addon2"
+                 class="list-group-item w-75"
+                 placeholder="Add Item"
+                 th:field="${item.name}">
+          <p class="error"
+             th:errors="${item.name}"></p>
+          <button class="btn btn-dark w-25"
+                  id="button-addon2"
+                  type="submit">Add
+          </button>
         </div>
-        <div>
-            <form method="post" class="d-flex">
-                <div class="input-group">
-                    <input class="list-group-item d-flex justify-content-between align-items-center w-75" th:field="${item.name}" placeholder="Add Item" aria-describedby="button-addon2">
-                    <p class="error" th:errors="${item.name}"></p>
-                    <button id="button-addon2" class="btn btn-dark d-flex w-25" type="submit">Add</button>
-                </div>
-            </form>
-        </div>
-        <div>
-            <ul th:each="item : ${items}" class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center"> <a th:href="'/list/add-tag?itemId=' + ${item.id}" th:text="${item.name}"></a></li>
-            </ul>
-        </div>
+      </form>
     </div>
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Tags</th>
+          <th>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+          <td>
+            <form method="post"
+                  th:action="@{item.setComplete}">
+              <input th:field="${item.id}"
+                     type="hidden">
+              <!--              <input th:field="${item.complete}"-->
+              <!--                     type="checkbox">-->
+            </form>
+          </td>
+          <td th:text="${item.name}"></td>
+          <td>
+            <span th:text="${item.quantity}"></span>
+          </td>
+          <td><span th:each="tag : ${item.tags}"
+                    th:text="${tag.displayName}"></span></td>
+          <td><a th:href="'/list/edit?itemId=' + ${item.id}"
+                 th:text="Edit"></a>
+            <!--            <a th:href="'/list/add-tag?itemId=' + ${item.id}"-->
+            <!--                 th:text="Edit"></a>-->
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 </div>
 </body>
 </html>
