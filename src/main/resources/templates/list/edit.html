@@ -8,47 +8,61 @@
 </div>
 <div class="container">
   <div class="content">
+
     <div>
       <h2 th:text="${title}"></h2>
     </div>
-    <div>
-      <form method="post"
-            th:object="${itemDTO}">
-        <div class="form-group">
-          <label class="mb-3"
-                 for="quantity">Quantity</label>
-          <input class="form-control mb-3"
-                 id="quantity"
-                 th:field="*{item.quantity}"
-                 type="number">
+
+    <form method="post"
+          th:object="${itemDTO}">
+
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input class="form-control mb-3"
+               id="quantity"
+               th:field="*{item.quantity}"
+               type="number">
+      </div>
+
+      <input th:field="*{item.id}"
+             type="hidden">
+
+      <div class="form-group">
+        <div class="select-group">
+          <select class="form-select mb-2"
+                  multiple
+                  th:field="*{tag}">
+            <option selected
+                    value="">Add tags
+            </option>
+            <option th:each="tag : ${tags}"
+                    th:text="${tag.name}"
+                    th:value="${tag.id}"
+            ></option>
+          </select>
         </div>
-        <input th:field="*{item.id}"
-               type="hidden">
-        <div class="select-group mb-3 flex-row">
-          <div class="col">
-            <select th:field="*{tag}">
-              <option selected
-                      value="">Add tags
-              </option>
-              <option th:each="tag : ${tags}"
-                      th:text="${tag.name}"
-                      th:value="${tag.id}"
-              ></option>
-            </select>
-          </div>
-          <div class="col">
-            <input th:checked="*{item.complete}"
-                   th:field="*{item.complete}"
-                   type="checkbox">
-          </div>
-          <div class="form-group col">
-            <button class="btn btn-dark"
-                    type="submit">Apply Changes
-            </button>
-          </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input"
+                 id="complete"
+                 th:checked="*{item.complete}"
+                 th:field="*{item.complete}"
+                 type="checkbox">
+          <label class="form-check-label mb-2"
+                 for="complete">Complete</label>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-dark"
+                type="submit">Apply Changes
+        </button>
+      </div>
+
+    </form>
+
   </div>
 </div>
 </body>
