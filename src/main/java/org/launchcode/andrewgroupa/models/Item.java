@@ -16,7 +16,7 @@ public class Item extends AbstractEntity {
   @ManyToMany
   private final List<Tag> tags = new ArrayList<>();
   @NotBlank
-  @Size(min = 3, max = 20, message = "Item name but be between 3 and 20 characters.")
+  @Size(min = 3, max = 20, message = "Item name must be between 3 and 20 characters.")
   @Column(unique = true)
   private String name;
   @ManyToOne
@@ -34,10 +34,6 @@ public class Item extends AbstractEntity {
   public Item() {
     this.quantity = 1;
     this.complete = false;
-  }
-
-  public Item(String name) {
-    this.name = name;
   }
 
   public boolean isComplete() {
