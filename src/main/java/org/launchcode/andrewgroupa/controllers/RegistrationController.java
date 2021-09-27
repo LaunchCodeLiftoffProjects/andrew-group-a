@@ -44,6 +44,7 @@ public class RegistrationController {
         try {
             newUser.setRoles("USER");
             newUser.setActive(true);
+            newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
             userRepository.save(newUser);
             return "redirect:/login";
         } catch (Exception e){
