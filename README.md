@@ -1,3 +1,5 @@
+andrew-group-a
+=======
 # Shopping List
 Our project is a simple web app that allows users to create and organize lists, so that they have less to worry about when shopping.
 
@@ -28,4 +30,3 @@ Tech Stack:
   <li>MySQL</li>
   <li>Bootstrap</li>
 </ul>
-  

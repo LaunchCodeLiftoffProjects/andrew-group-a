@@ -1,24 +1,22 @@
 package org.launchcode.andrewgroupa.models;
 
 
-import com.sun.istack.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User extends AbstractEntity {
-
 
   @OneToMany(mappedBy = "listOwner")
   private final List<ShoppingList> shoppingLists = new ArrayList<>();
   @NotNull
   @NotBlank
   @Column(unique = true)
-
   private String username;
   @NotBlank
   @NotNull
