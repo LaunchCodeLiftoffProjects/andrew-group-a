@@ -56,7 +56,8 @@
           <td><span th:each="tag : ${item.tags}"
                     th:text="${tag.displayName}"></span></td>
           <td><a th:href="'/list/edit?itemId=' + ${item.id}"
-                 th:text="Edit"></a>
+                 th:text="Edit"></a> /
+           <input type="submit" value="Delete"/>
             <!--            <a th:href="'/list/add-tag?itemId=' + ${item.id}"-->
             <!--                 th:text="Edit"></a>-->
           </td>
