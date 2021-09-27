@@ -2,16 +2,9 @@ package org.launchcode.andrewgroupa.models;
 
 
 import com.sun.istack.NotNull;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.UniqueConstraint;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,56 +13,52 @@ import java.util.List;
 public class User extends AbstractEntity {
 
 
-    @NotNull
-    @NotBlank
-    @Column(unique = true)
+  @OneToMany(mappedBy = "listOwner")
+  private final List<ShoppingList> shoppingLists = new ArrayList<>();
+  @NotNull
+  @NotBlank
+  @Column(unique = true)
 
-    private String username;
+  private String username;
+  @NotBlank
+  @NotNull
+  private String password;
+  private boolean active;
+  private String roles;
 
-    @NotBlank
-    @NotNull
-    private String password;
+  public String getUsername() {
+    return username;
+  }
 
-    private boolean active;
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    private String roles;
+  public String getPassword() {
+    return password;
+  }
 
-    @OneToMany(mappedBy = "listOwner")
-    private final List<ShoppingList> shoppingLists = new ArrayList<>();
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public boolean isActive() {
+    return active;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setActive(boolean active) {
+    this.active = active;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getRoles() {
+    return roles;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setRoles(String roles) {
+    this.roles = roles;
+  }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
-    }
-
-    public List<ShoppingList> getShoppingLists() {
-        return shoppingLists;
-    }
+  public List<ShoppingList> getShoppingLists() {
+    return shoppingLists;
+  }
 }
