@@ -7,6 +7,7 @@ import org.launchcode.andrewgroupa.Exceptions.DuplicateUser;
 import org.launchcode.andrewgroupa.data.UserRepository;
 import org.launchcode.andrewgroupa.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -25,6 +26,9 @@ public class RegistrationController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping
     public String displayRegistrationForm (){
         return "registration";
@@ -36,7 +40,6 @@ public class RegistrationController {
         if (errors.hasErrors()) {
             return "/registration?error";
         }
-
 
         try {
             newUser.setRoles("USER");
