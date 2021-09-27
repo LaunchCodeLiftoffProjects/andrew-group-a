@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
 <div>
@@ -13,15 +14,26 @@
   </div>
   <div class="row">
     <div class="col-lg-4">
-      <form method="post" class="d-flex">
+      <form class="d-flex"
+            method="post">
         <div class="input-group">
-          <input  class="list-group-item d-flex justify-content-between align-items-center w-75" th:field="${item.name}" placeholder="Add Item" aria-describedby="button-addon2">
-          <p class="error" th:errors="${item.name}"></p>
-          <button id="button-addon2" class="btn btn-dark d-flex w-25" type="submit">Add</button>
+          <input aria-describedby="button-addon2"
+                 class="list-group-item d-flex justify-content-between align-items-center w-75"
+                 placeholder="Add Item"
+                 th:field="${item.name}">
+          <p class="error"
+             th:errors="${item.name}"></p>
+          <button class="btn btn-dark d-flex w-25"
+                  id="button-addon2"
+                  type="submit">Add
+          </button>
         </div>
       </form>
-      <ul th:each="item : ${myList}" class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center"> <a th:href="'list/add-tag?itemId=' + ${item.id}" th:text="${item.name}"></a></li>
+      <ul class="list-group"
+          th:each="item : ${myList}">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a th:href="'list/add-tag?itemId=' + ${item.id}"
+             th:text="${item.name}"></a></li>
       </ul>
     </div>
   </div>
@@ -30,7 +42,8 @@
   <div class="col-lg-4">
   </div>
   <div>
-    <span th:each="tag : ${tags}" th:text="${tag.displayName} + ' '"></span>
+    <span th:each="tag : ${tags}"
+          th:text="${tag.displayName} + ' '"></span>
   </div>
 </div>
 </body>
