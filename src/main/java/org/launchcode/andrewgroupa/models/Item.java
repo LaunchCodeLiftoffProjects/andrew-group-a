@@ -48,6 +48,14 @@ public class Item extends AbstractEntity {
     this.complete = complete;
   }
 
+  public boolean isComplete() {
+    return complete;
+  }
+
+  public void setComplete(boolean complete) {
+    this.complete = complete;
+  }
+
   public int getQuantity() {
     return quantity;
   }
