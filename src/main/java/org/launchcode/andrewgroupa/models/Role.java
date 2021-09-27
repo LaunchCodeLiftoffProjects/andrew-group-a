@@ -1,17 +1,13 @@
 package org.launchcode.andrewgroupa.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 //@Entity
 public class Role {
 
-    //ID?
+  //ID?
 
-    //Role name
+  //Role name
 
-    //privileges - many to many
-
+  //privileges - many to many
 
 
 }

@@ -1,49 +1,48 @@
 package org.launchcode.andrewgroupa.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-public class ShoppingList extends AbstractEntity{
+public class ShoppingList extends AbstractEntity {
 
-    @NotBlank
-    @Size(min = 3, max = 30, message = "List name but be between 3 and 30 characters.")
-    private String name;
+  @OneToMany(mappedBy = "shoppingList")
+  private final List<Item> items = new ArrayList<>();
+  @NotBlank
+  @Size(min = 3, max = 30, message = "List name but be between 3 and 30 characters.")
+  private String name;
+  @ManyToOne
+  private User listOwner;
 
-    @ManyToOne
-    private User listOwner;
+  public ShoppingList() {
+  }
 
-    @OneToMany(mappedBy = "shoppingList")
-    private final List<Item> items = new ArrayList<>();
+  public ShoppingList(String name) {
+    this.name = name;
+  }
 
-    public ShoppingList() {}
+  public String getName() {
+    return name;
+  }
 
-    public ShoppingList(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public User getListOwner() {
+    return listOwner;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setListOwner(User listOwner) {
+    this.listOwner = listOwner;
+  }
 
-    public User getListOwner() {
-        return listOwner;
-    }
-
-    public void setListOwner(User listOwner) {
-        this.listOwner = listOwner;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
+  public List<Item> getItems() {
+    return items;
+  }
 }

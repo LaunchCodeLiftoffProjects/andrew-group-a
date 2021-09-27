@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
 public class AndrewGroupAApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AndrewGroupAApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(AndrewGroupAApplication.class, args);
+  }
 
 }
