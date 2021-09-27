@@ -1,25 +1,27 @@
 package org.launchcode.andrewgroupa.controllers;
 
+import java.util.Optional;
+import javax.validation.Valid;
 import org.launchcode.andrewgroupa.data.ItemRepository;
 import org.launchcode.andrewgroupa.data.ShoppingListRepository;
+import org.launchcode.andrewgroupa.data.TagRepository;
 import org.launchcode.andrewgroupa.data.UserRepository;
+import org.launchcode.andrewgroupa.models.Item;
 import org.launchcode.andrewgroupa.models.MyUserDetails;
 import org.launchcode.andrewgroupa.models.ShoppingList;
-import org.launchcode.andrewgroupa.models.User;
-import org.launchcode.andrewgroupa.data.TagRepository;
-import org.launchcode.andrewgroupa.models.Item;
 import org.launchcode.andrewgroupa.models.Tag;
+import org.launchcode.andrewgroupa.models.User;
 import org.launchcode.andrewgroupa.models.dto.EditItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
-
-
-import javax.validation.Valid;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("list")
@@ -149,14 +151,11 @@ public class ListController {
       }
 
       item.setQuantity(itemDTO.getItem().getQuantity());
+      item.setComplete(itemDTO.getItem().isComplete());
       itemRepository.save(item);
       return "redirect:/list/detail?listId=" + item.getShoppingList().getId();
     }
 
     return "redirect:/list/edit?itemId=" + itemId;
   }
-
 }
-
-
-
