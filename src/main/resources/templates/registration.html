@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <header th:replace="fragments :: header"></header>
 <body>
 
-    <div th:if="${param.error}">
-        Usernames must be unique.
-    </div>
+<div th:if="${param.error}">
+  Usernames must be unique.
+</div>
 
 
-
-    <form th:action="@{register}" method ="post">
-        <div><label> Username: <input type="text" name="username"/> </label></div>
-        <div><label> Password: <input type="password" name="password"/> </label></div>
-        <div><input type="submit" value="Create Account"/></div>
-    </form>
+<form method="post"
+      th:action="@{register}">
+  <div><label> Username: <input name="username"
+                                type="text"/> </label></div>
+  <div><label> Password: <input name="password"
+                                type="password"/> </label></div>
+  <div><input type="submit"
+              value="Create Account"/></div>
+</form>
 </body>
 </html>
 

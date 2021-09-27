@@ -80,6 +80,4 @@ public class Item extends AbstractEntity {
   public void addTag(Tag tag) {
     this.tags.add(tag);
   }
-
-
 }

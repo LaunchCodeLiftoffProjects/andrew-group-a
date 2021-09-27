@@ -23,35 +23,35 @@ import java.sql.SQLException;
 @RequestMapping("register")
 public class RegistrationController {
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
-    @GetMapping
-    public String displayRegistrationForm (){
-        return "registration";
+  @GetMapping
+  public String displayRegistrationForm() {
+    return "registration";
+  }
+
+  @PostMapping
+  public String finishRegistration(@ModelAttribute @Valid User newUser, Errors errors,
+      Model model) {
+
+    if (errors.hasErrors()) {
+      return "/registration?error";
     }
 
-    @PostMapping
-    public String finishRegistration(@ModelAttribute @Valid User newUser, Errors errors, Model model){
-
-        if (errors.hasErrors()) {
-            return "/registration?error";
-        }
-
-        try {
-            newUser.setRoles("USER");
-            newUser.setActive(true);
-            newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-            userRepository.save(newUser);
-            return "redirect:/login";
-        } catch (Exception e){
-            System.out.println("Caught" + e.getMessage());
-            return "redirect:/register?error";
-        }
-
+    try {
+      newUser.setRoles("USER");
+      newUser.setActive(true);
+      userRepository.save(newUser);
+      return "redirect:/login";
+    } catch (Exception e) {
+      System.out.println("Caught" + e.getMessage());
+      return "redirect:/register?error";
     }
+
+  }
 
 }
