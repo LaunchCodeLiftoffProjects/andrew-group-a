@@ -2,22 +2,30 @@ package org.launchcode.andrewgroupa.models;
 
 
 
+import com.sun.istack.NotNull;
+import org.hibernate.validator.constraints.UniqueElements;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.UniqueConstraint;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class User extends AbstractEntity {
 
+
     @NotNull
     @NotBlank
+    @Column(unique = true)
+
     private String username;
 
     @NotBlank
