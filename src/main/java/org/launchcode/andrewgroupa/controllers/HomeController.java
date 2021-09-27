@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping
 public class HomeController {
 
-    @GetMapping("")
-    public String welcomeToLists() {
-        return "index";
-    }
+  @GetMapping("")
+  public String welcomeToLists() {
+    return "index";
+  }
 
-    @GetMapping("login")
-    public String login() {
-        return "login"; }
+  @GetMapping("login")
+  public String login() {
+    return "login";
+  }
 
 
-
-    @GetMapping("logout/done")
-    public String logout(){
-        return "redirect:/login?logout";
-    }
+  @GetMapping("logout/done")
+  public String logout() {
+    return "redirect:/login?logout";
+  }
 
 }
