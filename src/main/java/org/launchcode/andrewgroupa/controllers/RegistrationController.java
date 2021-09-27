@@ -1,9 +1,6 @@
 package org.launchcode.andrewgroupa.controllers;
 
-import org.hibernate.NonUniqueObjectException;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
-import org.launchcode.andrewgroupa.Exceptions.DuplicateException;
-import org.launchcode.andrewgroupa.Exceptions.DuplicateUser;
+import javax.validation.Valid;
 import org.launchcode.andrewgroupa.data.UserRepository;
 import org.launchcode.andrewgroupa.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.Valid;
-import java.sql.SQLException;
 
 @Controller
 @RequestMapping("register")

@@ -1,9 +1,8 @@
 package org.launchcode.andrewgroupa.models.dto;
 
+import javax.validation.constraints.NotNull;
 import org.launchcode.andrewgroupa.models.Item;
 import org.launchcode.andrewgroupa.models.Tag;
-
-import javax.validation.constraints.NotNull;
 
 public class EditItemDTO {
 
