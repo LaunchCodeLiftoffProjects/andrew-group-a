@@ -11,32 +11,41 @@
     <div>
       <h2 th:text="${title}"></h2>
     </div>
-    <div class="col-lg-8">
-      <form method="post">
+    <div>
+      <form method="post"
+            th:object="${itemDTO}">
         <div class="form-group">
-          <label for="quantity">Quantity</label>
-          <input class="form-control mx-sm-3"
+          <label class="mb-3"
+                 for="quantity">Quantity</label>
+          <input class="form-control mb-3"
                  id="quantity"
-                 th:field="${itemDTO.item.quantity}"
+                 th:field="*{item.quantity}"
                  type="number">
         </div>
-        <input th:field="${itemDTO.item.id}"
+        <input th:field="*{item.id}"
                type="hidden">
-        <div class="select-group mb-3">
-          <select th:field="${itemDTO.tag}">
-            <option selected
-                    value="">Add tags
-            </option>
-            <option th:each="tag:${tags}"
-                    th:text="${tag.name}"
-                    th:value="${tag.id}"
-            ></option>
-          </select>
-        </div>
-        <div class="form-group m-3">
-          <button class="btn btn-dark"
-                  type="submit">Apply Changes
-          </button>
+        <div class="select-group mb-3 flex-row">
+          <div class="col">
+            <select th:field="*{tag}">
+              <option selected
+                      value="">Add tags
+              </option>
+              <option th:each="tag : ${tags}"
+                      th:text="${tag.name}"
+                      th:value="${tag.id}"
+              ></option>
+            </select>
+          </div>
+          <div class="col">
+            <input th:checked="*{item.complete}"
+                   th:field="*{item.complete}"
+                   type="checkbox">
+          </div>
+          <div class="form-group col">
+            <button class="btn btn-dark"
+                    type="submit">Apply Changes
+            </button>
+          </div>
         </div>
       </form>
     </div>
