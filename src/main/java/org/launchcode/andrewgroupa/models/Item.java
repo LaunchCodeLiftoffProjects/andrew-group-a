@@ -20,18 +20,31 @@ public class Item extends AbstractEntity {
   private String name;
   @ManyToOne
   private ShoppingList shoppingList;
-  private int quantity = 1;
+  private int quantity;
+  private boolean complete;
 
   public Item(String name, ShoppingList shoppingList) {
     this.name = name;
     this.shoppingList = shoppingList;
+    this.quantity = 1;
+    this.complete = false;
   }
 
   public Item() {
+    this.quantity = 1;
+    this.complete = false;
   }
 
   public Item(String name) {
     this.name = name;
+  }
+
+  public boolean isComplete() {
+    return complete;
+  }
+
+  public void setComplete(boolean complete) {
+    this.complete = complete;
   }
 
   public int getQuantity() {
